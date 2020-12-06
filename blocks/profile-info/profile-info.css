@@ -1,5 +1,5 @@
 .profile-info {
-  max-width: calc(100% - 127.5px - 150px);
+  max-width: calc(100% - 128px - 150px);
   display: flex;
   flex-direction: column;
   margin: auto 0;
