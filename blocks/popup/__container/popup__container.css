@@ -5,15 +5,12 @@
   background-color: white;
   font-family: 'Inter', 'Arial', sans-serif;
   color: black;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
   justify-content: space-between;
   padding: 34px 0 37px;
   box-sizing: border-box;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
+  position: fixed;
 }
 
 @media screen and (max-width: 583px) {

@@ -3,12 +3,12 @@ let popup = document.querySelector('.popup');
 let popupCloseButton = document.querySelector('.popup__close');
 let name = document.querySelector('.profile-info__name');
 let title = document.querySelector('.profile-info__title');
-let popupEditSaveButton = document.querySelector('.popup');
-let nameInput = document.querySelector('.popup__input-text-name');
+let nameInput = document.getElementsByName('profile-edit-name')[0];
+let titleInput = document.getElementsByName('profile-edit-title')[0];
 
 function openEditPopup() {
-    document.querySelector('.popup__input-text-title').value = title.innerText;
-    document.querySelector('.popup__input-text-name').value = name.innerText;
+    titleInput.value = title.textContent;
+    nameInput.value = name.textContent;
     popup.classList.add('popup_opened');
 }
 
@@ -18,13 +18,11 @@ function closeEditPopup() {
 
 function formEditSubmit(evt) {
     evt.preventDefault();
-    let nameInput = document.querySelector('.popup__input-text-name').value;
-    let titleInput = document.querySelector('.popup__input-text-title').value;
-    name.textContent = nameInput;
-    title.textContent = titleInput;
+    name.textContent = nameInput.value;
+    title.textContent = titleInput.value;
     closeEditPopup();
 }
 
 profileEditButton.addEventListener('click', openEditPopup);
 popupCloseButton.addEventListener('click', closeEditPopup);
-popupEditSaveButton.addEventListener('submit', formEditSubmit);
+popup.addEventListener('submit', formEditSubmit);
