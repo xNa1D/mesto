@@ -1,0 +1,9 @@
+.popup__close {
+  background: url(../../../images/edit-form-close-icon.svg) no-repeat center;
+  width: 40px;
+  height: 40px;
+  top: -40px;
+  right: -40px;
+  position: absolute;
+  border: none;
+}

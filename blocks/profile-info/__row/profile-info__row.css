@@ -1,0 +1,4 @@
+.profile-info__row {
+  display: flex;
+  align-content: flex-start;
+}

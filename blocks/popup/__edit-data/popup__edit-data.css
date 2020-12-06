@@ -1,0 +1,8 @@
+.popup__edit-data {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 36px*2);
+  margin: 0 auto;
+  padding: 0;
+}

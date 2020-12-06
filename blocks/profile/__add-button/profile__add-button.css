@@ -1,0 +1,12 @@
+.profile__add-button {
+  border: 1px solid #FFFFFF;
+  background-color: inherit;
+  margin: auto 0 auto auto;
+  background: url(../../../images/add-button-plus.svg) no-repeat center;
+  width: 150px;
+  height: 50px;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;   
+}
