@@ -6,3 +6,9 @@
   margin: 0 auto;
   padding: 0;
 }
+
+@media screen and (max-width: 583px) {
+  .popup__edit-data {
+    width: calc(100% - 22px*2);
+  }
+}

@@ -10,3 +10,15 @@
   justify-items: center;
   justify-content: center;
 }
+
+@media screen and (min-width: 584px) and (max-width: 880px) {
+  .cards {
+    grid-template-columns: repeat(2, 282px);
+  }
+}
+
+@media screen and (max-width: 583px) {
+  .cards {
+    grid-template-columns: repeat(1, 282px);
+  }
+}

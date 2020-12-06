@@ -2,3 +2,9 @@
   display: flex;
   align-content: flex-start;
 }
+
+@media screen and (max-width: 583px) {
+  .profile-info__row {
+    margin-top: 22.25px;
+  }
+}

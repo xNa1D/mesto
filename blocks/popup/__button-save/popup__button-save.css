@@ -6,4 +6,17 @@
   padding: 14px 0 18px;
   border: 0;
   border-radius: 2px;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+@media screen and (max-width: 583px) {
+  .popup__button-save {
+    width: calc(100% - 22px*2);
+    font-size: 14px;
+    line-height: 17px;
+    margin: 45px auto 0;
+    padding: 14px 0 14px;
+  }
 }

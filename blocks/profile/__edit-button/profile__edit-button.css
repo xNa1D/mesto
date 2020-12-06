@@ -1,6 +1,5 @@
 .profile__edit-button {
   border: 1px solid #FFFFFF;
-  align-self: flex-start;
   background-color: inherit;
   background: url(../../../images/profile-info-pencil.svg) no-repeat center;
   width: 24px;
@@ -11,4 +10,12 @@
 
 .profile__edit-button:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width: 583px) {
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+  }
 }
