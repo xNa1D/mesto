@@ -4,7 +4,7 @@
   font-family: 'Inter', 'Arial', sans-serif;
 }
 
-@media screen and (max-width: 583px) {
+@media screen and (max-width: 593px) {
   .elements {
     margin-top: 36px;
   }

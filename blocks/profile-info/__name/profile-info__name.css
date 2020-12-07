@@ -9,14 +9,14 @@
   overflow: hidden;
 }
 
-@media screen and (min-width: 584px) and (max-width: 880px) {
+@media screen and (min-width: 593px) and (max-width: 890px) {
  .profile-info__name {
   font-size: 28px;
   line-height: 32px;
  }
 }
 
-@media screen and (max-width: 583px) {
+@media screen and (max-width: 593px) {
   .profile-info__name {
     font-size: 27px;
     line-height: 33px;

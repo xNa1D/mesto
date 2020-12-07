@@ -1,4 +1,5 @@
 .profile-info__title {
+  max-width: 250px;
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
@@ -8,8 +9,9 @@
   overflow: hidden;
 }
 
-@media screen and (max-width: 583px) {
+@media screen and (max-width: 593px) {
   .profile-info__title {
+    max-width: 282px;
     font-size: 14px;
     line-height: 17px;
     margin: 14px 0 0;
