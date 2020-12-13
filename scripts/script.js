@@ -84,6 +84,7 @@ function formEditSubmit(evt) {
 function imgPopup(e) {
     openPopup(popupImgForm);
     popupImgForm.querySelector('.popup__img').src = e.src;
+    popupImgForm.querySelector('.popup__img').alt = e.alt;
     popupImgForm.querySelector('.popup__img-name').textContent = e.alt;
 }
 
