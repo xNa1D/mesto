@@ -56,9 +56,6 @@ initialCards.forEach(function(entry) {
     cardElement.querySelector('.cards__image').alt = entry.name;
     cardsContainer.append(cardElement);
 });
-const cardImg = document.querySelectorAll('.cards__image');
-
-console.log(cards);
 
 function openPopup(form) {
     form.closest('.popup').classList.add('popup_opened');
@@ -88,9 +85,8 @@ function formEditSubmit(evt) {
 
 function imgPopup(e) {
     openPopup(popupImgForm);
-    let currentImg = e.currentTarget;
-    popupImgForm.querySelector('.popup__img').src = currentImg.src;
-    popupImgForm.querySelector('.popup__img-name').textContent = currentImg.alt;
+    popupImgForm.querySelector('.popup__img').src = e.src;
+    popupImgForm.querySelector('.popup__img-name').textContent = e.alt;
 }
 
 function formAddCardSubmit(e) {
@@ -111,7 +107,6 @@ function formAddCardSubmit(e) {
 
 function deleteCard(e) {
   let currentCard = e.target.closest('.cards__item');
-  currentCard.removeEventListener('click', deleteCard);
   currentCard.remove();
 }
 
@@ -121,9 +116,6 @@ function likeCard(card) {
 
 profileEditBtn.addEventListener('click', openEditPopup);
 cardAddBtn.addEventListener('click', openAddCardPopup);
-cardImg.forEach(function(image) {
-    image.addEventListener('click', imgPopup)
-});
 popupCloseBtns.forEach(function(popup) {
     popup.addEventListener('click', closePopup)
 });
@@ -136,5 +128,8 @@ cards.addEventListener('click', function(card) {
   }
   if (card.target.className == 'cards__like') {
     likeCard(card);
+  } 
+  if (card.target.className == 'cards__image') {
+    imgPopup(card.target);
   } 
 });
