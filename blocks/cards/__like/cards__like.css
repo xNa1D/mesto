@@ -10,7 +10,3 @@
     transition: opacity 0.5s linear;
     opacity: 0.5;
   }
-  
-.cards__like:active {
-      background: url(../../../images/cards-liked.svg) no-repeat center;
-    }

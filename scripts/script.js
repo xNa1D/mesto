@@ -51,6 +51,9 @@ initialCards.forEach(function(entry) {
     cardElement.querySelector('.cards__title').textContent = entry.name;
     cardElement.querySelector('.cards__image').src = entry.link;
     cardElement.querySelector('.cards__image').alt = entry.name;
+    cardElement.querySelector('.cards__like').addEventListener('click', function(e) {
+        e.target.classList.toggle('cards__like_active');
+    });
     cardsContainer.append(cardElement);
 });
 
@@ -92,7 +95,9 @@ function formAddCardSubmit(e) {
     cardElement.querySelector('.cards__title').textContent = newCard.name;
     cardElement.querySelector('.cards__image').src = newCard.link;
     cardElement.querySelector('.cards__image').alt = newCard.name;
-
+    cardElement.querySelector('.cards__like').addEventListener('click', function(e) {
+        e.target.classList.toggle('cards__like_active');
+    });
     cardsContainer.prepend(cardElement);
     closePopup(e);
 }
