@@ -47,11 +47,7 @@ const initialCards = [
 const cardTemplate = document.querySelector('#cards-template').content;
 
 initialCards.forEach(function(entry) {
-    const cardElement = cardTemplate.cloneNode(true);
-
-    cardElement.querySelector('.cards__title').textContent = entry.name;
-    cardElement.querySelector('.cards__image').src = entry.link;
-    cardElement.querySelector('.cards__image').alt = entry.name;
+    let cardElement = createCard(entry);
     cardsContainer.append(cardElement);
 });
 
@@ -95,11 +91,7 @@ function formAddCardSubmit(e) {
       link: cardImgInput.value
     });
     let newCard = initialCards[0];
-    const cardElement = cardTemplate.cloneNode(true);
-
-    cardElement.querySelector('.cards__title').textContent = newCard.name;
-    cardElement.querySelector('.cards__image').src = newCard.link;
-    cardElement.querySelector('.cards__image').alt = newCard.name;
+    const cardElement = createCard(newCard);
     cardsContainer.prepend(cardElement);
     closePopup(e);
 }
@@ -111,6 +103,14 @@ function deleteCard(e) {
 
 function likeCard(card) {
     card.target.classList.toggle('cards__like_active');
+}
+
+function createCard(card) {
+    const cardElement = cardTemplate.cloneNode(true);
+    cardElement.querySelector('.cards__title').textContent = card.name;
+    cardElement.querySelector('.cards__image').src = card.link;
+    cardElement.querySelector('.cards__image').alt = card.name;
+    return cardElement;
 }
 
 profileEditBtn.addEventListener('click', openEditPopup);
