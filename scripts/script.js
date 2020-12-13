@@ -1,7 +1,11 @@
 let profileEditButton = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let popupForm = document.querySelector('.popup__form');
-let popupCloseButton = document.querySelector('.popup__close');
+let cardAddButton = document.querySelector('.profile__add-button');
+//let popup = document.querySelector('.popup');
+const popupEditForm = document.getElementsByName('profile-edit-form')[0];
+const popupAddCardForm = document.getElementsByName('profile-add-card-form')[0];
+
+const popupCloseButtons = document.querySelectorAll('.popup__close');
+
 let name = document.querySelector('.profile-info__name');
 let title = document.querySelector('.profile-info__title');
 let nameInput = document.getElementsByName('profile-edit-name')[0];
@@ -46,14 +50,23 @@ initialCards.forEach(function(entry) {
     cardsContainer.append(cardElement);
 });
 
+function openPopup(form) {
+    form.closest('.popup').classList.add('popup_opened');
+}
+
+function openAddCardPopup() {
+    openPopup(popupAddCardForm);
+}
+
 function openEditPopup() {
     titleInput.value = title.textContent;
     nameInput.value = name.textContent;
-    popup.classList.add('popup_opened');
+    openPopup(popupEditForm);
 }
 
-function closeEditPopup() {
-    popup.classList.remove('popup_opened');
+function closePopup(e) {
+    let currentPopup = e.currentTarget;
+    currentPopup.closest('.popup').classList.remove('popup_opened');
 }
 
 function formEditSubmit(evt) {
@@ -64,5 +77,8 @@ function formEditSubmit(evt) {
 }
 
 profileEditButton.addEventListener('click', openEditPopup);
-popupCloseButton.addEventListener('click', closeEditPopup);
-popupForm.addEventListener('submit', formEditSubmit);
+cardAddButton.addEventListener('click', openAddCardPopup);
+popupCloseButtons.forEach(function(popup) {
+    popup.addEventListener('click', closePopup)
+  });
+popupEditForm.addEventListener('submit', formEditSubmit);
