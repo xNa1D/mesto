@@ -5,8 +5,6 @@ const popupEditForm = document.getElementsByName('profile-edit-form')[0];
 const popupAddCardForm = document.getElementsByName('profile-add-card-form')[0];
 const popupImgForm = document.getElementsByName('img-form')[0];
 
-const cards = document.querySelector('.cards');
-
 const popupCloseBtns = document.querySelectorAll('.popup__close');
 
 let name = document.querySelector('.profile-info__name');
@@ -111,7 +109,7 @@ function deleteCard(e) {
 }
 
 function likeCard(card) {
-    card.target.closest('.cards__like').classList.toggle('cards__like_active');
+    card.target.classList.toggle('cards__like_active');
 }
 
 profileEditBtn.addEventListener('click', openEditPopup);
@@ -122,14 +120,14 @@ popupCloseBtns.forEach(function(popup) {
 popupEditForm.addEventListener('submit', formEditSubmit);
 popupAddCardForm.addEventListener('submit', formAddCardSubmit);
 
-cards.addEventListener('click', function(card) {  
-  if (card.target.className == 'cards__del') {
+cardsContainer.addEventListener('click', function(card) {  
+  if (card.target.classList.contains('cards__del')) {
     deleteCard(card);
   }
-  if (card.target.className == 'cards__like') {
+  if (card.target.classList.contains('cards__like')) {
     likeCard(card);
   } 
-  if (card.target.className == 'cards__image') {
+  if (card.target.classList.contains('cards__image')) {
     imgPopup(card.target);
   } 
 });
