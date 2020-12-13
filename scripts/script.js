@@ -1,6 +1,6 @@
 let profileEditButton = document.querySelector('.profile__edit-button');
 let cardAddButton = document.querySelector('.profile__add-button');
-//let popup = document.querySelector('.popup');
+
 const popupEditForm = document.getElementsByName('profile-edit-form')[0];
 const popupAddCardForm = document.getElementsByName('profile-add-card-form')[0];
 
@@ -8,8 +8,12 @@ const popupCloseButtons = document.querySelectorAll('.popup__close');
 
 let name = document.querySelector('.profile-info__name');
 let title = document.querySelector('.profile-info__title');
+
 let nameInput = document.getElementsByName('profile-edit-name')[0];
 let titleInput = document.getElementsByName('profile-edit-title')[0];
+
+let cardNameInput = document.getElementsByName('card-name')[0];
+let cardImgInput = document.getElementsByName('card-img')[0];
 
 const cardsContainer = document.querySelector('.cards');
 const initialCards = [
@@ -39,14 +43,14 @@ const initialCards = [
     }
 ];
 
+const cardTemplate = document.querySelector('#cards-template').content;
+
 initialCards.forEach(function(entry) {
-    const cardTemplate = document.querySelector('#cards-template').content;
     const cardElement = cardTemplate.cloneNode(true);
 
     cardElement.querySelector('.cards__title').textContent = entry.name;
     cardElement.querySelector('.cards__image').src = entry.link;
     cardElement.querySelector('.cards__image').alt = entry.name;
-
     cardsContainer.append(cardElement);
 });
 
@@ -73,7 +77,24 @@ function formEditSubmit(evt) {
     evt.preventDefault();
     name.textContent = nameInput.value;
     title.textContent = titleInput.value;
-    closeEditPopup();
+    closePopup(evt);
+}
+
+function formAddCardSubmit(e) {
+    e.preventDefault();
+    initialCards.unshift({
+      name: cardNameInput.value,
+      link: cardImgInput.value
+    });
+    let newCard = initialCards[0];
+    const cardElement = cardTemplate.cloneNode(true);
+
+    cardElement.querySelector('.cards__title').textContent = newCard.name;
+    cardElement.querySelector('.cards__image').src = newCard.link;
+    cardElement.querySelector('.cards__image').alt = newCard.name;
+
+    cardsContainer.prepend(cardElement);
+    closePopup(e);
 }
 
 profileEditButton.addEventListener('click', openEditPopup);
@@ -82,3 +103,4 @@ popupCloseButtons.forEach(function(popup) {
     popup.addEventListener('click', closePopup)
   });
 popupEditForm.addEventListener('submit', formEditSubmit);
+popupAddCardForm.addEventListener('submit', formAddCardSubmit);
