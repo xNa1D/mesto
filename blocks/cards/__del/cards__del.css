@@ -1,0 +1,15 @@
+.cards__del {
+    background: url(../../../images/cards-del.svg) no-repeat center;
+    background-size: contain;
+    border: 0;
+    width: 18px;
+    height: 19.3px;
+    position: absolute;
+    top: 18px;
+    right: 15px;
+}
+
+.cards__del:hover {
+    transition: opacity 0.5s linear;
+    opacity: 0.5;
+  }
