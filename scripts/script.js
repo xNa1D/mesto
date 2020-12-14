@@ -72,8 +72,7 @@ function createCard(card) {
     delButton.addEventListener('click', function() { deleteCard(delButton)});
 
     cardImg.addEventListener('click', function() { showImgPopup(cardImg) })
-    
-    console.log(likeButton);
+
     return cardElement;
 }
 
