@@ -48,7 +48,8 @@ function submitEditForm(form) {
     form.preventDefault();
     name.textContent = nameInput.value;
     title.textContent = titleInput.value;
-    closePopup(form);
+    const popup = popupEditForm.closest('.popup');
+    closePopup(popup);
 }
 
 function showImgPopup(e) {
@@ -67,7 +68,8 @@ function submitAddCardForm(e) {
     };
     const cardElement = createCard(newCard);
     cardsContainer.prepend(cardElement);
-    closePopup(e);
+    const popup = popupAddCardForm.closest('.popup')
+    closePopup(popup);
 }
 
 function deleteCard(e) {
