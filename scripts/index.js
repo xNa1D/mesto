@@ -1,11 +1,10 @@
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const cardAddBtn = document.querySelector('.profile__add-button');
 
+const popupList = document.querySelectorAll('.popup');
 const popupEditForm = document.forms['profile-edit-form'];
 const popupAddCardForm = document.forms['profile-add-card-form'];
 const popupImgForm = document.forms['img-form'];
-
-const popupCloseBtns = document.querySelectorAll('.popup__close');
 
 const name = document.querySelector('.profile-info__name');
 const title = document.querySelector('.profile-info__title');
@@ -19,6 +18,8 @@ const cardImgInput = popupAddCardForm.elements['card-img'];
 const cardsContainer = document.querySelector('.cards');
 
 const cardTemplate = document.querySelector('#cards-template').content;
+
+const firstPopup = document.querySelector('.popup');
 
 initialCards.forEach(function(entry) {
     const cardElement = createCard(entry);
@@ -39,9 +40,8 @@ function openEditPopup() {
     showPopup(popupEditForm);
 }
 
-function closePopup(e) {
-    const currentPopup = e.currentTarget;
-    currentPopup.closest('.popup').classList.remove('popup_opened');
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
 }
 
 function submitEditForm(evt) {
@@ -99,8 +99,16 @@ function createCard(card) {
 
 profileEditBtn.addEventListener('click', openEditPopup);
 cardAddBtn.addEventListener('click', openAddCardPopup);
-popupCloseBtns.forEach(function(popup) {
-    popup.addEventListener('click', closePopup)
+
+popupList.forEach(function(popup) {
+    popup.addEventListener('click', function(e) {
+        const target = e.target;
+        const closeButtonClass = popup.querySelector('.popup__close');
+        if (target.classList === popup.classList || closeButtonClass === target) {
+            closePopup(popup);
+        };
+      })
 });
+
 popupEditForm.addEventListener('submit', submitEditForm);
 popupAddCardForm.addEventListener('submit', submitAddCardForm);
