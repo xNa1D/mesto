@@ -10,6 +10,7 @@ const popupCloseBtns = document.querySelectorAll('.popup__close');
 const name = document.querySelector('.profile-info__name');
 const title = document.querySelector('.profile-info__title');
 
+const inputList = popupEditForm.querySelectorAll('.popup__input-text');
 const nameInput = popupEditForm.elements['profile-edit-name'];
 const titleInput = popupEditForm.elements['profile-edit-title'];
 
