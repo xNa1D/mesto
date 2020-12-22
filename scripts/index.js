@@ -44,11 +44,11 @@ function closePopup(popup) {
     popup.classList.remove('popup_opened');
 }
 
-function submitEditForm(evt) {
-    evt.preventDefault();
+function submitEditForm(form) {
+    form.preventDefault();
     name.textContent = nameInput.value;
     title.textContent = titleInput.value;
-    closePopup(evt);
+    closePopup(form);
 }
 
 function showImgPopup(e) {
@@ -109,6 +109,13 @@ popupList.forEach(function(popup) {
         };
       })
 });
+
+document.addEventListener('keydown', function(e) {
+    const popup = document.querySelector('.popup_opened')
+    if (e.key === "Escape") {
+        closePopup(popup);
+    }
+})
 
 popupEditForm.addEventListener('submit', submitEditForm);
 popupAddCardForm.addEventListener('submit', submitAddCardForm);
