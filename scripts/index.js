@@ -1,3 +1,6 @@
+import Card from './card.js';
+import { initialCards } from './consts.js';
+
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const cardAddBtn = document.querySelector('.profile__add-button');
 
@@ -20,8 +23,6 @@ const cardNameInput = popupAddCardForm.elements['card-name'];
 const cardImgInput = popupAddCardForm.elements['card-img'];
 
 const cardsContainer = document.querySelector('.cards');
-
-const cardTemplate = document.querySelector('#cards-template').content;
 
 const firstPopup = document.querySelector('.popup');
 
@@ -74,62 +75,6 @@ function submitAddCardForm(e) {
     cardsContainer.prepend(cardElement);
     const popup = popupAddCardForm.closest('.popup')
     closePopup(popup);
-}
-
-class Card {
-    constructor(data) {
-      this._link = data.link;
-      this._name = data.name;
-    }
-
-    _getTemplate() {
-        const cardElement = cardTemplate.cloneNode(true);
-        return cardElement;
-    }
-
-    _likeCard(likeButton) {
-        likeButton.classList.toggle('cards__like_active');
-    }
-
-    _deleteCard(delButton) {
-        delButton.closest('.cards__item').remove();
-    }
-
-    _showImgPopup() {
-        showPopup(imagePopup);
-        popupImgFormData.src = this._link;
-        popupImgFormData.alt = this._name;
-        imagePopupTitle.textContent = this._name;
-    }
-
-    _setEventListeners() {
-        const likeButton = this._element.querySelector('.cards__like');
-        likeButton.addEventListener('click', () => {
-            this._likeCard(likeButton);
-        });
-
-        const delButton = this._element.querySelector('.cards__del');
-        delButton.addEventListener('click', () => {
-            this._deleteCard(delButton);
-        });
-
-        const cardImg = this._element.querySelector('.cards__image');
-        cardImg.addEventListener('click', () => {
-            this._showImgPopup();
-        })
-    }
-
-    generateCard() {
-        this._element = this._getTemplate();
-        this._setEventListeners();
-
-        const cardImg = this._element.querySelector('.cards__image');
-        cardImg.src = this._link;
-        cardImg.alt = this._name;
-        this._element.querySelector('.cards__title').textContent = this._name;
-
-        return this._element;
-    }
 }
 
 initialCards.forEach(function(entry) {
