@@ -1,3 +1,9 @@
+export default class FormValidator {
+  constructor(data) {
+    this._formSelector = data.formSelector;
+  }
+}
+
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input-text',

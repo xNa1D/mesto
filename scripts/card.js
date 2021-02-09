@@ -18,6 +18,10 @@ export default class Card {
     }
 
     _showImgPopup() {
+        const popupImgForm = document.forms['img-form'];
+        const imagePopup = popupImgForm.closest('.popup');
+        const popupImgFormData = popupImgForm.querySelector('.popup__img');
+        const imagePopupTitle = popupImgForm.querySelector('.popup__img-name');
         showPopup(imagePopup);
         popupImgFormData.src = this._link;
         popupImgFormData.alt = this._name;

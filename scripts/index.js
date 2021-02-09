@@ -1,4 +1,5 @@
 import Card from './card.js';
+import FormValidator from './validate.js';
 import { initialCards } from './consts.js';
 
 const profileEditBtn = document.querySelector('.profile__edit-button');
@@ -7,11 +8,9 @@ const cardAddBtn = document.querySelector('.profile__add-button');
 const popupList = document.querySelectorAll('.popup');
 const popupEditForm = document.forms['profile-edit-form'];
 const popupAddCardForm = document.forms['profile-add-card-form'];
-const popupImgForm = document.forms['img-form'];
 
 const editPopup = popupEditForm.closest('.popup');
-const addCardPopup = popupAddCardForm.closest('.popup')
-const imagePopup = popupImgForm.closest('.popup')
+const addCardPopup = popupAddCardForm.closest('.popup');
 
 const name = document.querySelector('.profile-info__name');
 const title = document.querySelector('.profile-info__title');
@@ -23,11 +22,6 @@ const cardNameInput = popupAddCardForm.elements['card-name'];
 const cardImgInput = popupAddCardForm.elements['card-img'];
 
 const cardsContainer = document.querySelector('.cards');
-
-const firstPopup = document.querySelector('.popup');
-
-const popupImgFormData = popupImgForm.querySelector('.popup__img');
-const imagePopupTitle = popupImgForm.querySelector('.popup__img-name');
 
 function showPopup(popup) {
     popup.classList.add('popup_opened');
@@ -55,13 +49,6 @@ function submitEditForm(e) {
     name.textContent = nameInput.value;
     title.textContent = titleInput.value;
     closePopup(editPopup);
-}
-
-function showImgPopup(card) {
-    showPopup(imagePopup);
-    popupImgFormData.src = card.link;
-    popupImgFormData.alt = card.name;
-    imagePopupTitle.textContent = card.name;
 }
 
 function submitAddCardForm(e) {
