@@ -1,7 +1,8 @@
 export default class Card {
-    constructor(data) {
+    constructor(data, showPopup) {
       this._link = data.link;
       this._name = data.name;
+      this._showPopup = showPopup;
     }
 
     _getTemplate() {
@@ -22,7 +23,7 @@ export default class Card {
         const imagePopup = popupImgForm.closest('.popup');
         const popupImgFormData = popupImgForm.querySelector('.popup__img');
         const imagePopupTitle = popupImgForm.querySelector('.popup__img-name');
-        showPopup(imagePopup);
+        this._showPopup(imagePopup);
         popupImgFormData.src = this._link;
         popupImgFormData.alt = this._name;
         imagePopupTitle.textContent = this._name;
