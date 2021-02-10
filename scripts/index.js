@@ -103,14 +103,12 @@ cardAddBtn.addEventListener('click', () => {
 popupList.forEach(function(popup) {
     popup.addEventListener('click', function(e) {
         validationFormAdd.setButtonState(popupAddCardForm.checkValidity());
-        const target = e.target;
+        const { target } = e;
         if (target.classList.contains('popup') || target.classList.contains('popup__close')) {
             closePopup(popup);
         };
       })
 });
-
-document.addEventListener('keydown', closeByEscape);
 
 popupEditForm.addEventListener('submit', submitEditForm);
 popupAddCardForm.addEventListener('submit', submitAddCardForm);
