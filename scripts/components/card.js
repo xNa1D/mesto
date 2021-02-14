@@ -1,3 +1,5 @@
+import Popup from './Popup.js';
+
 export default class Card {
     constructor(data, showPopup) {
       this._link = data.link;
