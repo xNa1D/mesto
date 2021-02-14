@@ -30,7 +30,6 @@ export const cardListSection = '.cards';
 export const profileEditBtn = document.querySelector('.profile__edit-button');
 export const cardAddBtn = document.querySelector('.profile__add-button');
 
-export const popupList = document.querySelectorAll('.popup');
 export const popupEditForm = document.forms['profile-edit-form'];
 export const popupAddCardForm = document.forms['profile-add-card-form'];
 
