@@ -7,15 +7,11 @@ import { initialCards,
     cardListSection,
     profileEditBtn,
     cardAddBtn,
-    popupEditForm,
     popupAddCardForm,
     profileName,
     profileTitle,
     nameInput,
     titleInput,
-    cardNameInput,
-    cardImgInput,
-    cardsContainer,
     validationConfig} from './utils/consts.js';
 
 const validationFormEdit = new FormValidator(validationConfig, '.popup__form_edit');
@@ -38,17 +34,27 @@ function createCard(data) {
     cardsList.addItem(cardElement);
 }
 
-const editPopup = new PopupWithForm('.popup__form_edit');
+const editPopup = new PopupWithForm({
+    popupSelector: '.popup__form_edit',
+    handleSubmitForm: (data) => {
+        submitEditForm(data);
+    }
+});
 editPopup.setEventListeners();
 
-const addCardPopup = new PopupWithForm('.popup__form_add');
+const addCardPopup = new PopupWithForm({
+    popupSelector: '.popup__form_add',
+    handleSubmitForm: (data) => {
+        createCard(data);
+        validationFormAdd.setButtonState(popupAddCardForm.checkValidity());
+    }
+});
 addCardPopup.setEventListeners();
 
 const imgPopup = new PopupWithImage('.popup__img-form')
 imgPopup.setEventListeners();
 
 function openAddCardPopup() {
-    popupAddCardForm.reset();
     validationFormAdd.clearErrors();
     addCardPopup.open();
 }
@@ -60,23 +66,9 @@ function openEditPopup() {
     editPopup.open();
 }
 
-function submitEditForm(e) {
-    e.preventDefault();
-    profileName.textContent = nameInput.value;
-    profileTitle.textContent = titleInput.value;
-    editPopup.close();
-}
-
-function submitAddCardForm(e) {
-    e.preventDefault();
-    const newCard = {
-        name: cardNameInput.value,
-        link: cardImgInput.value
-    };
-    createCard(newCard);
-
-    validationFormAdd.setButtonState(popupAddCardForm.checkValidity());
-    addCardPopup.close();
+function submitEditForm(data) {
+    profileName.textContent = data.name;
+    profileTitle.textContent = data.title;
 }
 
 function handleCardClick(name, link) {
@@ -88,6 +80,3 @@ cardAddBtn.addEventListener('click', () => {
     validationFormAdd.setButtonState(popupAddCardForm.checkValidity());
     openAddCardPopup();
 });
-
-popupEditForm.addEventListener('submit', submitEditForm);
-popupAddCardForm.addEventListener('submit', submitAddCardForm);
