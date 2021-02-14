@@ -2,18 +2,21 @@ import Section from './components/Section.js';
 import Card from './components/card.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js'
+import UserInfo from './components/UserInfo.js';
 import FormValidator from './components/formValidator.js';
 import { initialCards, 
     cardListSection,
     profileEditBtn,
     cardAddBtn,
     popupAddCardForm,
-    profileName,
-    profileTitle,
     nameInput,
     titleInput,
     validationConfig} from './utils/consts.js';
 
+const UserData = new UserInfo({
+    nameSelector: '.profile-info__name',
+    titleSelector: '.profile-info__title'
+});
 const validationFormEdit = new FormValidator(validationConfig, '.popup__form_edit');
 validationFormEdit.enableValidation();
 
@@ -37,7 +40,7 @@ function createCard(data) {
 const editPopup = new PopupWithForm({
     popupSelector: '.popup__form_edit',
     handleSubmitForm: (data) => {
-        submitEditForm(data);
+        UserData.setUserInfo(data);
     }
 });
 editPopup.setEventListeners();
@@ -46,7 +49,6 @@ const addCardPopup = new PopupWithForm({
     popupSelector: '.popup__form_add',
     handleSubmitForm: (data) => {
         createCard(data);
-        validationFormAdd.setButtonState(popupAddCardForm.checkValidity());
     }
 });
 addCardPopup.setEventListeners();
@@ -56,19 +58,17 @@ imgPopup.setEventListeners();
 
 function openAddCardPopup() {
     validationFormAdd.clearErrors();
+    validationFormAdd.setButtonState(popupAddCardForm.checkValidity());
     addCardPopup.open();
 }
 
 function openEditPopup() {
-    titleInput.value = profileTitle.textContent;
-    nameInput.value = profileName.textContent;
+    const data = UserData.getUserInfo();
+    nameInput.value = data.name;
+    titleInput.value = data.title;
     validationFormEdit.clearErrors();
+    validationFormEdit.setButtonState(popupAddCardForm.checkValidity());
     editPopup.open();
-}
-
-function submitEditForm(data) {
-    profileName.textContent = data.name;
-    profileTitle.textContent = data.title;
 }
 
 function handleCardClick(name, link) {
@@ -76,7 +76,4 @@ function handleCardClick(name, link) {
 }
 
 profileEditBtn.addEventListener('click', openEditPopup);
-cardAddBtn.addEventListener('click', () => {
-    validationFormAdd.setButtonState(popupAddCardForm.checkValidity());
-    openAddCardPopup();
-});
+cardAddBtn.addEventListener('click', openAddCardPopup);

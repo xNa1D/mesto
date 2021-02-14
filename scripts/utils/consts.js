@@ -33,9 +33,6 @@ export const cardAddBtn = document.querySelector('.profile__add-button');
 export const popupEditForm = document.forms['profile-edit-form'];
 export const popupAddCardForm = document.forms['profile-add-card-form'];
 
-export const profileName = document.querySelector('.profile-info__name');
-export const profileTitle = document.querySelector('.profile-info__title');
-
 export const nameInput = popupEditForm.elements['name'];
 export const titleInput = popupEditForm.elements['title'];
 
