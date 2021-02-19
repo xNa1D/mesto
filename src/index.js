@@ -1,9 +1,10 @@
-import Section from './components/Section.js';
-import Card from './components/card.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js'
-import UserInfo from './components/UserInfo.js';
-import FormValidator from './components/formValidator.js';
+import './pages/index.css';
+import Section from './scripts/components/Section.js';
+import Card from './scripts/components/card.js';
+import PopupWithImage from './scripts/components/PopupWithImage.js';
+import PopupWithForm from './scripts/components/PopupWithForm.js'
+import UserInfo from './scripts/components/UserInfo.js';
+import FormValidator from './scripts/components/formValidator.js';
 import { initialCards, 
     cardListSection,
     profileEditBtn,
@@ -11,7 +12,7 @@ import { initialCards,
     popupAddCardForm,
     nameInput,
     titleInput,
-    validationConfig} from './utils/consts.js';
+    validationConfig} from './scripts/utils/consts.js';
 
 const UserData = new UserInfo({
     nameSelector: '.profile-info__name',
