@@ -1,14 +1,13 @@
-import Popup from './Popup.js';
-
 export default class Card {
-    constructor(data, handleCardClick) {
+    constructor(data, cardSelector, handleCardClick) {
       this._link = data.link;
       this._name = data.name;
       this._handleCardClick = handleCardClick;
+      this._cardTemplate = document.querySelector('#cards-template');
     }
-
+    
     _getTemplate() {
-        const cardElement = document.querySelector('#cards-template').content.cloneNode(true);
+        const cardElement = this._cardTemplate.content.cloneNode(true);
         return cardElement;
     }
 

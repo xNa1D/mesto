@@ -26,6 +26,7 @@ export const initialCards = [
 ];
 
 export const cardListSection = '.cards';
+export const cardTemplateSelector = '#cards-template';
 
 export const profileEditBtn = document.querySelector('.profile__edit-button');
 export const cardAddBtn = document.querySelector('.profile__add-button');

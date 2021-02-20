@@ -12,7 +12,8 @@ import { initialCards,
     popupAddCardForm,
     nameInput,
     titleInput,
-    validationConfig} from './scripts/utils/consts.js';
+    validationConfig,
+    cardTemplateSelector} from './scripts/utils/consts.js';
 
 const UserData = new UserInfo({
     nameSelector: '.profile-info__name',
@@ -33,7 +34,7 @@ const cardsList = new Section({
 cardsList.renderItems();
 
 function createCard(data) {
-    const card = new Card(data, handleCardClick);
+    const card = new Card(data, cardTemplateSelector, handleCardClick);
     const cardElement = card.generateCard(); 
     cardsList.addItem(cardElement);
 }
