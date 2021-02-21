@@ -11,13 +11,16 @@
     </header> 
     <main class="content">
         <section class="profile">
-            <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар страницы">
+            <div class="profile__avatar-container">
+              <img class="profile__avatar" src="../" alt="Аватар страницы">
+              <button class="profile__avatar-edit-button"></button>
+            </div>
             <div class="profile-info">
                 <div class="profile-info__row">
-                  <h1 class="profile-info__name">Жак-Ив Кусто</h1>
+                  <h1 class="profile-info__name"></h1>
                   <button type="button" class="profile__edit-button"></button>
                 </div>
-                <p class="profile-info__title">Исследователь океана</p>
+                <p class="profile-info__about"></p>
             </div>
             <button type="button" class="profile__add-button"></button>
         </section>
@@ -36,8 +39,8 @@
           <h2 class="popup__title">Редактировать профиль</h2>
             <input type="text" class="popup__input-text" value="" name="name" id="name" placeholder="Введите ваше имя" minlength="2" maxlength="40" required>
             <span class="popup__input-text-error" id="name-error"></span>
-            <input type="text" class="popup__input-text" value="" name="title" id="title" placeholder="Введите вашу должность" minlength="2" maxlength="200" required>
-            <span class="popup__input-text-error" id="title-error"></span>
+            <input type="text" class="popup__input-text" value="" name="about" id="about" placeholder="Введите вашу должность" minlength="2" maxlength="200" required>
+            <span class="popup__input-text-error" id="about-error"></span>
         <button type="submit" class="popup__button-save">Сохранить</button>
         </form>
       </div>
@@ -56,6 +59,15 @@
       </div>
     </div>
     <div class="popup">
+      <div class="popup__container">
+        <form class="popup__form popup__form_del" name="profile-del-form" novalidate>
+          <button type="reset" class="popup__close"></button>
+            <h2 class="popup__title">Вы уверены?</h2>
+          <button type="submit" class="popup__button-save popup__button-save_withoutmargin">Да</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup">
       <div class="popup__container-image">
         <form class="popup__img-form" name="img-form">
           <button type="reset" class="popup__close"></button>
@@ -64,13 +76,27 @@
         </form>
       </div>
     </div>
+    <div class="popup">
+      <div class="popup__container">
+        <form class="popup__form popup__form_avatar" name="profile-avatar-form" novalidate>
+          <button type="reset" class="popup__close"></button>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <input type="url" class="popup__input-text" value="" name="link" id="avatar-img" placeholder="Ссылка на на аватар" required>
+          <span class="popup__input-text-error" id="avatar-img-error"></span>
+          <button type="submit" class="popup__button-save popup__button-save_withoutmargin">Сохранить</button>
+        </form>
+      </div>
+    </div>
     <template id="cards-template">
-      <li class="cards__item">
+      <li class="cards__item" id="">
         <button type="button" class="cards__del"></button>
         <img class="cards__image" src="../" alt="Пустота">
         <div class="cards__rectangle">
           <h2 class="cards__title"></h2>
-          <button type="button" class="cards__like"></button>
+          <div class="cards__likes">
+            <button type="button" class="cards__like"></button>
+            <span class="cards__likes-counter"></span>
+          </div>
         </div>
       </li>
     </template>
