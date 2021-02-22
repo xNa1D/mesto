@@ -4,7 +4,7 @@ import Section from './scripts/components/Section.js';
 import Card from './scripts/components/card.js';
 import PopupWithImage from './scripts/components/PopupWithImage.js';
 import PopupWithForm from './scripts/components/PopupWithForm.js';
-import PopupWithDelete from './scripts/components/PopupWithDelete.js';
+import PopupWithConfirm from './scripts/components/PopupWithConfirm.js';
 import UserInfo from './scripts/components/UserInfo.js';
 import FormValidator from './scripts/components/formValidator.js';
 import { cardListSection,
@@ -22,9 +22,9 @@ const api = new Api(apiConfig);
 
 api.getAllInfo()
   .then(([dataUser, dataCards]) => {
-    cardsList.renderItems(dataCards);
     UserData.setUserInfo(dataUser);
     UserData.updateUserInfo();
+    cardsList.renderItems(dataCards);
   })
   .catch(err => console.log(err));
 
@@ -44,13 +44,36 @@ const validationFormEditAvatar = new FormValidator(validationConfig, '.popup__fo
 validationFormEditAvatar.enableValidation();
 
 const cardsList = new Section({
-    renderer: createCard
+    renderer: createCard 
 }, cardListSection
 );
   
 function createCard(data) {
-    const card = new Card(data, cardTemplateSelector, handleCardClick, handleDeleteIconClick, handleLikeClick);
-    const cardElement = card.generateCard(UserData.getMyId()); 
+    const card = new Card(data, UserData.getMyId(), cardTemplateSelector, {
+        handleCardClick: (name, link) => {
+            imgPopup.open({name, link});
+        },
+        handleDeleteIconClick: (cardId) => {
+            delCardPopup.open(cardId);
+        },
+        handleLikeClick: (cardId) => {
+            const currentCard = document.getElementById(cardId);
+            const isLike = currentCard.querySelector('.cards__like').classList.contains('cards__like_active');
+            const likeCounter = currentCard.querySelector('.cards__likes-counter');
+            if(isLike) {
+                api.addLikeCard(cardId)
+                  .then((data) => {
+                      likeCounter.textContent = data.likes.length;
+                  });
+            } else {
+                api.removeLikeCard(cardId)
+                .then((data) => {
+                    likeCounter.textContent = data.likes.length;
+                });
+            }
+        }
+    });
+    const cardElement = card.generateCard();
     cardsList.addItem(cardElement);
 }
 
@@ -87,10 +110,11 @@ const avatarUpdate = new PopupWithForm({
 });
 avatarUpdate.setEventListeners();
 
-const delCardPopup = new PopupWithDelete({
+const delCardPopup = new PopupWithConfirm({
     popupSelector: '.popup__form_del',
-    handleSubmitForm: (data) => {
-        api.deleteCard(data._id);   
+    handleSubmitForm: (cardId) => {
+        api.deleteCard(cardId);
+        document.getElementById(cardId).remove();
     }
 });
 delCardPopup.setEventListeners();
@@ -117,32 +141,6 @@ function openAvatarEditPopup() {
     validationFormEditAvatar.clearErrors();
     validationFormEditAvatar.setButtonState(popupAddCardForm.checkValidity());
     avatarUpdate.open();
-}
-
-function handleCardClick(name, link) {
-    imgPopup.open({name, link});
-}
-
-function handleDeleteIconClick(cardId) {
-    delCardPopup.open(cardId);
-}
-
-function handleLikeClick(cardId) {
-    const currentCard = document.getElementById(cardId);
-    const isLike = currentCard.querySelector('.cards__like').classList.contains('cards__like_active');
-    const likeCounter = currentCard.querySelector('.cards__likes-counter');
-
-    if(isLike) {
-        api.addLikeCard(cardId)
-          .then((data) => {
-              likeCounter.textContent = data.likes.length;
-          });
-    } else {
-        api.removeLikeCard(cardId)
-        .then((data) => {
-            likeCounter.textContent = data.likes.length;
-        });
-    }
 }
 
 profileEditBtn.addEventListener('click', openEditPopup);

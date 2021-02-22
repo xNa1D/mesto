@@ -1,10 +1,11 @@
 export default class Card {
-    constructor(data, cardTemaplteSelector, handleCardClick, handleDeleteIconClick, handleLikeClick) {
+    constructor(data, myId, cardTemaplteSelector, { handleCardClick, handleDeleteIconClick, handleLikeClick }) {
       this._id = data._id;
       this._link = data.link;
       this._name = data.name;
-      this._likesCount = data.likes.length;
-      this._ownerid = data.owner._id;
+      this._likes = data.likes;
+      this._ownerCardId = data.owner._id;
+      this._myId = myId;
       this._handleCardClick = handleCardClick;
       this._handleDeleteIconClick = handleDeleteIconClick;
       this._handleLikeClick = handleLikeClick;
@@ -38,7 +39,16 @@ export default class Card {
         })
     }
 
-    generateCard(myId) {
+    _checkDeleteIcon() {
+        const deleteIcon = this._element.querySelector('.cards__del');
+        if (this._ownerCardId !== this._myId) {
+            deleteIcon.classList.add('cards__del_remove');
+        } else {
+            deleteIcon.classList.remove('cards__del_remove');
+        }
+    }
+
+    generateCard() {
         this._element = this._getTemplate();
         this._setEventListeners();
 
@@ -47,13 +57,16 @@ export default class Card {
         cardImg.alt = this._name;
         this._element.querySelector('.cards__title').textContent = this._name;
 
-        this._element.querySelector('.cards__likes-counter').textContent = this._likesCount;
+        this._element.querySelector('.cards__likes-counter').textContent = this._likes.length;
+        
+        this._likes.forEach(likeData => {
+            if (likeData._id === this._myId) {
+                this._element.querySelector('.cards__like').classList.add('cards__like_active')
+            }
+        });
 
-        if (this._ownerid !== myId) {
-            this._element.querySelector('.cards__del').classList.add('cards__del_remove');
-        } else {
-            this._element.querySelector('.cards__del').classList.remove('cards__del_remove')
-        }
+        this._checkDeleteIcon();
+
         this._element.querySelector('.cards__item').id = this._id;
         return this._element;
     }
