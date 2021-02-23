@@ -57,6 +57,7 @@ function createCard(data) {
             delCardPopup.open(cardId);
         },
         handleLikeClick: (cardId, card) => {
+            // я пытался передать card, но для этого кажется нужно переписать isLike как функцию внутри класса + остальное тоже функциями, потому что просто this возвращает фрагмент с которым ничего не могу сделать
             const currentCard = document.getElementById(cardId);
             const isLike = currentCard.querySelector('.cards__like').classList.contains('cards__like_active');
             const likeCounter = currentCard.querySelector('.cards__likes-counter');
