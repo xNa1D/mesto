@@ -25,7 +25,7 @@ export default class Card {
         const likeButton = this._element.querySelector('.cards__like');
         likeButton.addEventListener('click', () => {
             this._likeCard(likeButton);
-            this._handleLikeClick(this._id);
+            this._handleLikeClick(this._id, this);
         });
 
         const delButton = this._element.querySelector('.cards__del');
@@ -64,7 +64,6 @@ export default class Card {
                 this._element.querySelector('.cards__like').classList.add('cards__like_active')
             }
         });
-
         this._checkDeleteIcon();
 
         this._element.querySelector('.cards__item').id = this._id;

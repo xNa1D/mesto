@@ -1,12 +1,12 @@
 import './pages/index.css';
 import Api from './scripts/components/Api';
 import Section from './scripts/components/Section.js';
-import Card from './scripts/components/card.js';
+import Card from './scripts/components/Card.js';
 import PopupWithImage from './scripts/components/PopupWithImage.js';
 import PopupWithForm from './scripts/components/PopupWithForm.js';
 import PopupWithConfirm from './scripts/components/PopupWithConfirm.js';
 import UserInfo from './scripts/components/UserInfo.js';
-import FormValidator from './scripts/components/formValidator.js';
+import FormValidator from './scripts/components/FormValidator.js';
 import { cardListSection,
     profileEditBtn,
     cardAddBtn,
@@ -22,13 +22,13 @@ const api = new Api(apiConfig);
 
 api.getAllInfo()
   .then(([dataUser, dataCards]) => {
-    UserData.setUserInfo(dataUser);
-    UserData.updateUserInfo();
+    userData.setUserInfo(dataUser);
+    userData.updateUserInfo();
     cardsList.renderItems(dataCards);
   })
   .catch(err => console.log(err));
 
-const UserData = new UserInfo({
+const userData = new UserInfo({
     nameSelector: '.profile-info__name',
     aboutSelector: '.profile-info__about',
     avatarSelector: '.profile__avatar'
@@ -49,14 +49,14 @@ const cardsList = new Section({
 );
   
 function createCard(data) {
-    const card = new Card(data, UserData.getMyId(), cardTemplateSelector, {
+    const card = new Card(data, userData.getMyId(), cardTemplateSelector, {
         handleCardClick: (name, link) => {
             imgPopup.open({name, link});
         },
         handleDeleteIconClick: (cardId) => {
             delCardPopup.open(cardId);
         },
-        handleLikeClick: (cardId) => {
+        handleLikeClick: (cardId, card) => {
             const currentCard = document.getElementById(cardId);
             const isLike = currentCard.querySelector('.cards__like').classList.contains('cards__like_active');
             const likeCounter = currentCard.querySelector('.cards__likes-counter');
@@ -64,12 +64,14 @@ function createCard(data) {
                 api.addLikeCard(cardId)
                   .then((data) => {
                       likeCounter.textContent = data.likes.length;
-                  });
+                  })
+                  .catch(err => console.log(err));
             } else {
                 api.removeLikeCard(cardId)
                 .then((data) => {
                     likeCounter.textContent = data.likes.length;
-                });
+                })
+                .catch(err => console.log(err));
             }
         }
     });
@@ -82,8 +84,8 @@ const editPopup = new PopupWithForm({
     handleSubmitForm: (data) => {
         api.updateUserData(data.name, data.about)
           .then((data) => {
-            UserData.setUserInfo(data);
-            UserData.updateUserInfo();
+            userData.setUserInfo(data);
+            userData.updateUserInfo();
           })
           .catch((err) => console.log(err));
     }
@@ -95,6 +97,7 @@ const addCardPopup = new PopupWithForm({
     handleSubmitForm: (data) => {
         api.addNewCard(data.name, data.link, data.likes)
           .then((data) => createCard(data))
+          .catch(err => console.log(err));
     }
 });
 addCardPopup.setEventListeners();
@@ -104,8 +107,10 @@ const avatarUpdate = new PopupWithForm({
     handleSubmitForm: (data) => {
         api.updateAvatar(data.link)
         .then((data) => {
-            document.querySelector('.profile__avatar').src = data.avatar;
-        });
+            userData.setUserInfo(data);
+            userData.updateUserInfo();
+        })
+        .catch(err => console.log(err));
     }
 });
 avatarUpdate.setEventListeners();
@@ -113,7 +118,8 @@ avatarUpdate.setEventListeners();
 const delCardPopup = new PopupWithConfirm({
     popupSelector: '.popup__form_del',
     handleSubmitForm: (cardId) => {
-        api.deleteCard(cardId);
+        api.deleteCard(cardId)
+        .catch(err => console.log(err));
         document.getElementById(cardId).remove();
     }
 });
@@ -129,7 +135,7 @@ function openAddCardPopup() {
 }
 
 function openEditPopup() {
-    const data = UserData.getUserInfo();
+    const data = userData.getUserInfo();
     nameInput.value = data.name;
     aboutInput.value = data.about;
     validationFormEdit.clearErrors();
